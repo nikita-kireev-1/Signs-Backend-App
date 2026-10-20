@@ -72,14 +72,14 @@ class UserService(
         return userRepository.updateAndReturn(updatedUser)
     }
 
-    override suspend fun deleteUserByUUID(id: Uuid): Boolean {
+    override suspend fun deleteUserByUUID(id: Uuid, requesterId : Uuid): Boolean {
         logger.info("Starting to check arguments to delete user by Uuid")
         val user = userRepository.findByUUID(id)
         if(user == null){
             logger.warn("User to delete do not exist")
             throw ResourceNotFoundException("user to delete")
         }
-        if(user.id != id){
+        if(user.id != requesterId){
             logger.warn("Requester is not allowed to delete a user")
             throw ForbiddenException()
         }

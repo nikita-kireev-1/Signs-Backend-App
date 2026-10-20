@@ -14,7 +14,8 @@ interface UserServiceInterface {
         id : Uuid
     ) : User
     suspend fun deleteUserByUUID(
-        id : Uuid
+        id : Uuid,
+        requesterId : Uuid,
     ) : Boolean
     suspend fun deleteUserByName(
         userId : Uuid,

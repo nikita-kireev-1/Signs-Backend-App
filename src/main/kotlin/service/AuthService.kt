@@ -22,7 +22,7 @@ class AuthService(
     ): String {
         logger.info("Starting to check login arguments")
         if(username.length !in 4..20 || !username.matches(Regex("^[A-Za-z0-9_]+$")) || password.length !in 8..16 || !password.matches(Regex("^[A-Za-z0-9_]+$"))){
-            logger.warn("Invalid $password or $username for login",password,username )
+            logger.warn("Invalid password or username for login")
             throw InvalidCredentialsException()
         }
         val user = userService.findUserByName(username)
@@ -31,7 +31,7 @@ class AuthService(
                 userId = user.id.toString()
             )
         }else{
-            logger.warn("Wrong $password",password)
+            logger.warn("Wrong password")
             throw WrongCredentialsException()
         }
 
@@ -42,11 +42,11 @@ class AuthService(
     ) : String {
         logger.info("Starting to check register arguments")
         if(username.length !in 4..20 || !username.matches(Regex("^[A-Za-z0-9_]+$")) || password.length !in 8..16 || !password.matches(Regex("^[A-Za-z0-9_]+$"))){
-            logger.warn("Invalid $password or $username for register",password,username)
+            logger.warn("Invalid password or username for register")
             throw InvalidCredentialsException()
         }
         if( userRepository.findByName(username) != null){
-            logger.warn("$username already exists",username)
+            logger.warn("username already exists")
             throw UsernameAlreadyExistsException()
         }
         userService.createUser(

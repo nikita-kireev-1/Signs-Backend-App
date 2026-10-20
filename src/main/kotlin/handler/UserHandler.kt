@@ -53,7 +53,8 @@ class UserHandler(
         logger.info("Starting to delete user by id")
         val request = call.receive<DeleteUserByIdRequest>()
         val deleteConfirmed = userService.deleteUserByUUID(
-            id = Uuid.parse(request.id)
+            id = Uuid.parse(request.id),
+            requesterId = call.requireUserId()
         )
         if(deleteConfirmed){
             call.respond(HttpStatusCode.OK)

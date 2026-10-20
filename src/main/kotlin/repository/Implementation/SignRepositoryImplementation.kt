@@ -17,6 +17,7 @@ import org.jetbrains.exposed.v1.jdbc.transactions.suspendTransaction
 import org.jetbrains.exposed.v1.jdbc.update
 import org.jetbrains.exposed.v1.core.between
 import org.jetbrains.exposed.v1.core.greater
+import org.jetbrains.exposed.v1.core.greaterEq
 import org.jetbrains.exposed.v1.core.inSubQuery
 import org.jetbrains.exposed.v1.core.less
 import org.jetbrains.exposed.v1.jdbc.select
@@ -129,10 +130,10 @@ class SignRepositoryImplementation(
 
     private fun JdbcTransaction.deleteHighlyReportedSigns(minReports : Int) : Int{
         val reportedSignIds = SignReportsTable
-            .select(SignReportsTable.id)
-            .groupBy(SignReportsTable.id)
+            .select(SignReportsTable.signId)
+            .groupBy(SignReportsTable.signId)
             .having{
-                Count(SignReportsTable.id) greater minReports.toLong()
+                Count(SignReportsTable.signId) greaterEq minReports.toLong()
             }
         val deletedCounter = SignsTable.deleteWhere {
             SignsTable.id inSubQuery reportedSignIds

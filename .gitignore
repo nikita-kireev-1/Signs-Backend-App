@@ -9,6 +9,7 @@ build/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/kotlinc.xml
 *.iws
 *.iml
 *.ipr
@@ -43,3 +44,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+.env
+src/main/kotlin/sql/Database.sql
+local.properties
+.schemathesis

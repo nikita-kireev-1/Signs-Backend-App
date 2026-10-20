@@ -1,0 +1,8 @@
+package routing
+
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.route
+
+fun Route.specificationRoutes() {
+
+}
